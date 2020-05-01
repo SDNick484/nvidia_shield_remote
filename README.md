@@ -1,5 +1,5 @@
-# nvidia_shield_remote
-Python class for controlling Nvidia Shield over a network
+# Fork of nvidia_shield_remote
+<a href="https://github.com/stefan-sherwood/nvidia_shield_remote">nvidia_shield_remote</a> is a Python class for controlling Nvidia Shield over a network.  This project extends that work and adds a GUI to it.
 
 ## Prerequisites
 <details>
@@ -68,36 +68,3 @@ Python class for controlling Nvidia Shield over a network
 &emsp13;&emsp13;&emsp13; Copy these two files to the directory containing <code>nvidia.py</code>
 </details>
 </i>
-
-## Sample code
-
-```
-import nvidia
-device = nvidia.shield( 'SHIELD:5555' ) # device name (or IP address) and port
-device.press( 'power' ) # turn the Shield on or off
-device.press( 'home' ) # press the home button
-device.launch( 'hbo' ) # launch HBO Now app
-```
-
-## Usage
-
-<code>nvidia.shield</code> has two methods:
-
-<details>
-<summary>
-<code>press( button )</code>
-</summary>
-<br/>
-&emsp13;&emsp13;&emsp13; Button is one of: <code>power, sleep, wake, home, back, search, up, down, left, right, center, volume up, volume down, rewind, ff, play/pause, previous, next</code>
-</details>
-
-<details>
-<summary>
-<code>launch( app )</code>
-</summary>
-<br/>
-&emsp13;&emsp13;&emsp13;App is one of: <code>hbo, prime, music, youtube, ted, games,hulu,netflix,youtubetv,disney,twitch,plex,kodi,cbs,pbs,amazonmusic,spotify,pandora</code>
-</details>
-
----
-<b>Questions, feedback, bug reports, and feature requests are all welcome.</b>
