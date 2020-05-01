@@ -1,6 +1,8 @@
 # Fork of nvidia_shield_remote
 <a href="https://github.com/stefan-sherwood/nvidia_shield_remote">nvidia_shield_remote</a> is a Python class for controlling Nvidia Shield over a network.  This project extends that work and adds a GUI to it.
 
+![image](https://github.com/SDNick484/nvidia_shield_remote/blob/master/Nvidia%20Shield%20Remote.png)
+
 ## Prerequisites
 <details>
 <summary>
@@ -68,3 +70,4 @@
 &emsp13;&emsp13;&emsp13; Copy these two files to the directory containing <code>nvidia.py</code>
 </details>
 </i>
+
