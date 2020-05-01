@@ -42,18 +42,14 @@
 
 <details>
 <summary>
-<b>The DNS name <i>(recommended)</i> or IP address and the debug port of your Nvidia Shield</b>
+<b>The IP address and debug port of your Nvidia Shield</b>
 </summary>
 
 <br/>
-&emsp13;&emsp13;&emsp13; <b>Get the DNS name</b><br/>
-&emsp13;&emsp13;&emsp13; The DNS name is usually just the <i>Device name</i> of your Shield. Unless you have changed it, it is <i>SHIELD</i>.<br/>
-&emsp13;&emsp13;&emsp13; The device name is found at <i>Settings &rarr; About &rarr; Device name</i>
-<br/><br/>
 &emsp13;&emsp13;&emsp13; <b>Get the IP address and debug port</b><br/>
 &emsp13;&emsp13;&emsp13; <i>Settings &rarr; Developer Options &rarr; Network debugging</i>
 <br/>
-&emsp13;&emsp13;&emsp13; When you select this option the IP address and port will be shown
+&emsp13;&emsp13;&emsp13; Update the "SHIELD_IP_PORT" variable of nvidia_remote.py with the correct IP
 </details>
 
 <details>
