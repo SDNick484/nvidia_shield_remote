@@ -1,94 +1,14 @@
+#! /usr/bin/env python
+
 from adb import adb_commands
 from adb.sign_pythonrsa import PythonRSASigner
+import nvidia
 import tkinter as tk
 import pathlib
 
-SHIELD_IP_PORT = '192.168.1.130:5555'
-
-## Checking for ADB Keys before proceeding
-file = pathlib.Path("adbkey.pub")
-if not file.exists ():
-    print ("ADB Key not found, please set up Remote ADB before proceeding")
-    quit()
-
-
-class shield:
-	buttons = { 
-		'power': 'KEYCODE_POWER',
-		'home': 'KEYCODE_HOME',
-		'back': 'KEYCODE_BACK',
-		'up': 'KEYCODE_DPAD_UP',
-		'down': 'KEYCODE_DPAD_DOWN',
-		'left': 'KEYCODE_DPAD_LEFT',
-		'right': 'KEYCODE_DPAD_RIGHT',
-		'center': 'KEYCODE_DPAD_CENTER',
-		'volume up': 'KEYCODE_VOLUME_UP',
-		'volume down': 'KEYCODE_VOLUME_DOWN',
-		'rewind': 'KEYCODE_MEDIA_REWIND',
-		'ff': 'KEYCODE_MEDIA_FAST_FORWARD',
-		'play/pause': 'KEYCODE_MEDIA_PLAY_PAUSE',
-		# Below are not used by GUI
-		'sleep': 'KEYCODE_SLEEP',
-		'wake': 'KEYCODE_WAKEUP',
-                'next': 'KEYCODE_MEDIA_NEXT',
-		'previous': 'KEYCODE_MEDIA_PREVIOUS',
-		'search': 'KEYCODE_SEARCH',
-	}
-
-	apps = {
-                'netflix': 'com.netflix.ninja/.MainActivity',
-                'hulu': 'com.hulu.livingroomplus/.WKFactivity',
-		'youtube': 'com.google.android.youtube.tv/com.google.android.apps.youtube.tv.activity.ShellActivity',
-                'youtubetv': 'com.google.android.youtube.tvunplugged/com.google.android.apps.youtube.tvunplugged.activity.MainActivity',
-		'disney': 'com.disney.disneyplus/com.bamtechmedia.dominguez.main.MainActivity',
-                'vudu': 'air.com.vudu.air.DownloaderTablet/.TvMainActivity',
-		# Below are not used by GUI
-                'hbo': 'com.hbo.hbonow/com.hbo.go.LaunchActivity',
-		'prime': 'com.amazon.amazonvideo.livingroom/com.amazon.ignition.IgnitionActivity',
-		'music': 'com.google.android.music/.tv.HomeActivity',
-		'ted':  'com.ted.android.tv/.view.MainActivity',
-                'kodi': 'org.xbmc.kodi/.Splash',
-                'twitch': 'tv.twitch.android.app/tv.twitch.android.apps.TwitchActivity',
-                'plex': 'com.plexapp.android/com.plexapp.plex.activities.SplashActivity',
-		'cbs': 'com.cbs.ott/com.cbs.app.tv.ui.activity.SplashActivity',
-		'pbs': 'com.pbs.video/.ui.main.activities.StartupActivity',
-		'amazonmusic': 'com.amazon.music.tv/.activity.MainActivity',
-		'pandora': 'com.pandora.android.atv/com.pandora.android.MainActivity',
-		'spotify': 'com.spotify.tv.android/.SpotifyTVActivity',
-		'games': 'com.nvidia.tegrazone3/com.nvidia.tegrazone.leanback.LBMainActivity'
-	}
-
-	def __init__( self, ip = b'SHIELD:5555' ):
-		if isinstance( ip, str ):
-			ip = str.encode( ip )
-		self.shield_ip_and_port = ip
-		self.connect()
-
-	def connect( self ):
-		signed_key = PythonRSASigner.FromRSAKeyPath( 'adbkey' )
-		self.device = adb_commands.AdbCommands().ConnectDevice( serial=self.shield_ip_and_port, rsa_keys=[ signed_key ] )
-
-	def shell( self, arg ):
-		# Nvidia disconnects inactive debuggers so we reconnect and retry on failure
-		for i in range(2):
-			try:
-				self.device.Shell( arg )
-				return
-			except ConnectionResetError:
-				self.connect()
-
-	def press( self, button ):
-		if button not in self.buttons:
-			return { 'error': f'unknown button "{button}"'}
-
-		self.shell( f'input keyevent {self.buttons[ button ]}' )
-
-	def launch( self, app ):
-		if app not in self.apps:
-			return { 'error': f'no such app "{app}"' }
-
-		app_launch_activity = self.apps[ app ]
-		self.shell( f'am start -n {app_launch_activity}')
+### Specify your Shield TV's IP & Port here
+#SHIELD_IP_PORT = "192.168.1.130:5555" #<-- Example
+SHIELD_IP_PORT = None
 
 def main():
     window = tk.Tk()
@@ -206,6 +126,20 @@ def main():
     window.mainloop()
 
 if __name__ == "__main__":
-    device = shield( SHIELD_IP_PORT ) # device name (or IP address) and port
+    
+    ### Checking for ADB Keys before proceeding
+    file = pathlib.Path("adbkey.pub")
+    if not file.exists ():
+        print ("ADB Key not found, please set up Remote ADB before proceeding")
+        quit()
+
+    ### Check if Shield's IP & Port are set
+    if not SHIELD_IP_PORT:
+        print("Please udpate nvidia_cli.py with your Shield's IP and port")
+        quit()
+
+    ### Set up device
+    device = nvidia.shield( SHIELD_IP_PORT ) 
+
     main()
 
