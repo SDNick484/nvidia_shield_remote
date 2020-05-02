@@ -1,13 +1,11 @@
 #! /usr/bin/env python
 import sys
 import nvidia
-import configparser
 
 ### Specify your Shield TV's IP & Port here to avoid needing to specify on CLI
 ### e.g. SHIELD_IP_PORT = "192.168.1.130:5555"
-SHIELD_IP_PORT = "192.168.1.130:5555"
-#SHIELD_IP_PORT = None
-
+#SHIELD_IP_PORT = "192.168.1.130:5555"
+SHIELD_IP_PORT = None
 
 ### Set up device
 device = nvidia.shield( SHIELD_IP_PORT ) # device name (or IP address) and port
