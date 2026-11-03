@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nvidia-shield-remote"
+version = "1.0.0"
+description = "Modern Python 3.10+ library, CLI, and desktop remote for Nvidia Shield TV"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: End Users/Desktop",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Operating System :: OS Independent",
+    "Topic :: Home Automation",
+    "Topic :: Multimedia",
+]
+dependencies = [
+    "adb-shell>=0.4.4",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+]
+
+[project.scripts]
+shield-cli = "nvidia_shield_remote.cli:main"
+shield-remote = "nvidia_shield_remote.gui:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["nvidia_shield_remote*", "nvidia"]
+
+[tool.setuptools.package-data]
+nvidia_shield_remote = ["assets/*.png"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = [".deps", "."]
