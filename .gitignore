@@ -1,0 +1,30 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Unit test / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local dependencies & virtual environments
+.deps/
+.venv/
+venv/
+ENV/
+
+# Local ADB keys & user config
+adbkey
+adbkey.pub
+config.toml
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
